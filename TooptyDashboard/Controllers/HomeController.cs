@@ -10,6 +10,10 @@ namespace TooptyDashboard.Controllers
     {
         public ActionResult Index()
         {
+            if(Session["UserID"] ==null)
+            {
+                return RedirectToAction("SmartLogin", "Account");
+            }
             return View();
         }
 

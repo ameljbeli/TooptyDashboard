@@ -2,9 +2,11 @@
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -22,7 +24,7 @@ namespace TooptyDashboard.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +36,9 @@ namespace TooptyDashboard.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -60,6 +62,63 @@ namespace TooptyDashboard.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult SmartLogin(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult SmartLogin(Admin model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
+            // Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true
+            TooptyDBEntities db = new TooptyDBEntities();
+            var obj = db.Admin.Where(x => x.E_mail == model.E_mail && x.Password == model.Password).FirstOrDefault();
+            if (obj == null)
+            {
+               
+                ViewBag.DuplicateMessage = "Access Denied! Wrong Credential!";
+                return View();
+            }
+            else
+            {
+                //Login Success
+                //For Set Authentication in Cookie (Remeber ME Option)
+                SignInRemember(model.E_mail, model.RememberMe);
+
+                //Set A Unique ID in session
+                Session["UserID"] = obj;
+                return RedirectToAction("Index", "Home");
+                
+            }
+        }
+        //GET: SignInAsync
+        private void SignInRemember(string userName, bool isPersistent = false)
+        {
+            // Clear any lingering authencation data
+            FormsAuthentication.SignOut();
+
+            // Write the authentication cookie
+            FormsAuthentication.SetAuthCookie(userName, isPersistent);
+        }
+
+      
+
+
 
         //
         // POST: /Account/Login
@@ -120,7 +179,7 @@ namespace TooptyDashboard.Controllers
             // Si un utilisateur entre des codes incorrects pendant un certain intervalle, le compte de cet utilisateur 
             // est alors verrouillé pendant une durée spécifiée. 
             // Vous pouvez configurer les paramètres de verrouillage du compte dans IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,8 +214,8 @@ namespace TooptyDashboard.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // Pour plus d'informations sur l'activation de la confirmation de compte et de la réinitialisation de mot de passe, visitez https://go.microsoft.com/fwlink/?LinkID=320771
                     // Envoyer un message électronique avec ce lien
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -391,8 +450,27 @@ namespace TooptyDashboard.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+           try
+            {
+                // First we clean the authentication ticket like always
+                //required NameSpace: using System.Web.Security;
+                FormsAuthentication.SignOut();
+
+                // Second we clear the principal to ensure the user does not retain any authentication
+                //required NameSpace: using System.Security.Principal;
+                HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
+
+                Session["UserId"]=null;
+                System.Web.HttpContext.Current.Session.RemoveAll();
+
+                // Last we redirect to a controller/action that requires authentication to ensure a redirect takes place
+                // this clears the Request.IsAuthenticated flag since this triggers a new request
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         //

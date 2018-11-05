@@ -1,22 +1,33 @@
-﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
+﻿@using TooptyDashboard.Models;
+@{
+    var user = Session["UserId"] as Admin;
+ }
+@if (user!=null)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
-
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
-    </ul>
+        @Html.AntiForgeryToken()
+       
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Clients", "Index", "Clients")</li>
+            <li>@Html.ActionLink("Products", "Index", "Products")</li>
+            <li>@Html.ActionLink("Brands", "Index", "Marques")</li>
+            <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
+            <li>@Html.ActionLink("Commandes", "Index", "Commandes")</li>
+         
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Bonjour " + user.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
+        </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("S’inscrire", "Registration", "RegistrationAdmin", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Login", "SmartLogin", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
