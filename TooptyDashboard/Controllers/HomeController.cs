@@ -14,11 +14,17 @@ namespace TooptyDashboard.Controllers
             {
                 return RedirectToAction("SmartLogin", "Account");
             }
+            else
             return View();
         }
 
         public ActionResult About()
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("SmartLogin", "Account");
+
+            }
             ViewBag.Message = "Your application description page.";
 
             return View();

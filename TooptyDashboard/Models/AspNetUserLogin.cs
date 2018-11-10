@@ -11,12 +11,13 @@ namespace TooptyDashboard.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Categorie
+    
+    public partial class AspNetUserLogin
     {
-        public int IdCategorie { get; set; }
-        [Display(Name = "Nom Categorie")]
-        public string NomCategorie { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

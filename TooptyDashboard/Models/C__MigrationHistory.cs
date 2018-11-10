@@ -11,12 +11,12 @@ namespace TooptyDashboard.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Categorie
+    
+    public partial class C__MigrationHistory
     {
-        public int IdCategorie { get; set; }
-        [Display(Name = "Nom Categorie")]
-        public string NomCategorie { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }
