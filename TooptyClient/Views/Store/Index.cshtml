@@ -1,0 +1,15 @@
+﻿@model IEnumerable<TooptyClient.Models.Categorie>
+@{
+    ViewBag.Title = "Store";
+}
+<h3>Browse Genres</h3>
+
+<p>
+    Select from @Model.Count() genres:
+</p>
+<ul>
+    @foreach (var categorie in Model)
+    {
+        <li>@Html.ActionLink(categorie.NomCategorie, "Browse", new { categorie = categorie.NomCategorie })</li>
+    }
+</ul>

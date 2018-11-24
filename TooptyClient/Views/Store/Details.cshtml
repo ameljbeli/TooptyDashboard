@@ -1,0 +1,29 @@
+﻿@model TooptyClient.Models.Product
+
+@{
+    ViewBag.Title = "Item - " + Model.Nom;
+}
+
+<h2>@Model.Nom</h2>
+
+<p>
+    <img alt="@Model.Nom" src="@Model.ImageUrl" />
+</p>
+
+<div id="item-details">
+    <p>
+        <em>Genre:</em>
+        @Model.IdCategorie
+    </p>
+    <p>
+        <em>Price:</em>
+        @String.Format("{0:F}", Model.Price)
+    </p>
+    <p class="button">
+        @Html.ActionLink("Add to cart", "AddToCart",
+        "ShoppingCart", new { id = Model.IdProduct }, "")
+    </p>
+</div>
+
+
+

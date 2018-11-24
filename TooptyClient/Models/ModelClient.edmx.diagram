@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dbe1ea7f7475495e9a374baefa056268" Name="Diagram1">
+        <EntityTypeShape EntityType="TooptyModel.Admin" Width="1.5" PointX="1.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TooptyModel.Categorie" Width="1.5" PointX="3.375" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TooptyModel.Client" Width="1.5" PointX="0.625" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="TooptyModel.Commande" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TooptyModel.Marque" Width="1.5" PointX="5.625" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TooptyModel.Product" Width="1.5" PointX="4.625" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TooptyModel.Order" Width="1.5" PointX="6.75" PointY="2.5" />
+        <EntityTypeShape EntityType="TooptyModel.Order_Detail" Width="1.5" PointX="13.75" PointY="0.5" />
+        <EntityTypeShape EntityType="TooptyModel.ShoppingCart" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TooptyModel.ShoppingCartItem" Width="1.5" PointX="2.75" PointY="6.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

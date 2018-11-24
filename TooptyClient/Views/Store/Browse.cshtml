@@ -1,0 +1,22 @@
+﻿@model TooptyClient.Models.Categorie
+
+@{
+    ViewBag.Title = "Browse Items";
+}
+
+<div class="genre">
+    <h3><em>@Model.NomCategorie</em> Items</h3>
+
+    <ul id="item-list">
+        @foreach (var item in Model.Product)
+        {
+            <li>
+                <a href="@Url.Action("Details", new { id = item.IdProduct })">
+                    <img alt="@item.Nom" src="@item.ImageUrl" />
+                    <span>@item.Nom</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
