@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="TooptyModel.Product" Width="1.5" PointX="4.625" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TooptyModel.Order" Width="1.5" PointX="6.75" PointY="2.5" />
         <EntityTypeShape EntityType="TooptyModel.Order_Detail" Width="1.5" PointX="13.75" PointY="0.5" />
-        <EntityTypeShape EntityType="TooptyModel.ShoppingCart" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TooptyModel.ShoppingCart" Width="1.5" PointX="0.75" PointY="7.125" />
         <EntityTypeShape EntityType="TooptyModel.ShoppingCartItem" Width="1.5" PointX="2.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
