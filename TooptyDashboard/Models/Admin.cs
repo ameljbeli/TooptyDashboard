@@ -19,6 +19,6 @@ namespace TooptyDashboard.Models
         public string Password { get; set; }
         public string E_mail { get; set; }
         public string ConfirmPassword { get; set; }
-        public bool RememberMe { get; set; }
+        public Nullable<bool> RememberMe { get; set; }
     }
 }

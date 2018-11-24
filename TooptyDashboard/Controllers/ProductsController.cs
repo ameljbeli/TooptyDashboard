@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TooptyDashboard.Models;
+using System.IO;
 
 namespace TooptyDashboard.Controllers
 {
@@ -36,6 +37,7 @@ namespace TooptyDashboard.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(product);
         }
 
@@ -50,12 +52,22 @@ namespace TooptyDashboard.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduct,Matricule,Nom,Price,Qte,IdMarque,IdCategorie")] Product product)
+        public ActionResult Create([Bind(Include = "IdProduct,Matricule,Nom,Price,Qte,IdMarque,IdCategorie,ImageUrl")] Product product)
         {
+                     
+            
             if (ModelState.IsValid)
             {
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
+                string extention = Path.GetExtension(product.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
+                product.ImageUrl = "~/Images/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                product.ImageFile.SaveAs(fileName);
+
                 db.Product.Add(product);
                 db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
 
@@ -70,6 +82,7 @@ namespace TooptyDashboard.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Product product = db.Product.Find(id);
+
             if (product == null)
             {
                 return HttpNotFound();
@@ -86,6 +99,17 @@ namespace TooptyDashboard.Controllers
         {
             if (ModelState.IsValid)
             {
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
+                string extention = Path.GetExtension(product.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
+                if (fileName != null)
+                {
+                    product.ImageUrl = "~/Images/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    product.ImageFile.SaveAs(fileName);
+                }
+               
+
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

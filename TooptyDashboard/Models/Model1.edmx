@@ -62,6 +62,7 @@
           <Property Name="Qte" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IdMarque" Type="int" Nullable="false" />
           <Property Name="IdCategorie" Type="int" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityContainer Name="TooptyDBModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
@@ -132,6 +133,7 @@
           <Property Name="Qte" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdMarque" Type="Int32" Nullable="false" />
           <Property Name="IdCategorie" Type="Int32" Nullable="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="TooptyDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admin" EntityType="Self.Admin" />
@@ -200,6 +202,7 @@
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="TooptyDBModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
                 <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
                 <ScalarProperty Name="Matricule" ColumnName="Matricule" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />

@@ -11,12 +11,10 @@ namespace TooptyDashboard.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Categorie
     {
         public int IdCategorie { get; set; }
-        [Display(Name = "Nom Categorie")]
         public string NomCategorie { get; set; }
     }
 }

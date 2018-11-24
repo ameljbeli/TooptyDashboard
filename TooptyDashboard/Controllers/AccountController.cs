@@ -77,7 +77,7 @@ namespace TooptyDashboard.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SmartLogin(Admin model, string returnUrl)
+        public ActionResult SmartLogin(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace TooptyDashboard.Controllers
             // Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
             // Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true
             TooptyDBEntities db = new TooptyDBEntities();
-            var obj = db.Admin.Where(x => x.E_mail == model.E_mail && x.Password == model.Password).FirstOrDefault();
+            var obj = db.Admin.Where(x => x.E_mail == model.Email && x.Password == model.Password).FirstOrDefault();
             if (obj == null)
             {
                
@@ -98,13 +98,18 @@ namespace TooptyDashboard.Controllers
             {
                 //Login Success
                 //For Set Authentication in Cookie (Remeber ME Option)
-                SignInRemember(model.E_mail, model.RememberMe);
+                SignInRemember(model.Email, model.RememberMe);
 
                 //Set A Unique ID in session
                 Session["UserID"] = obj;
                 return RedirectToAction("Index", "Home");
                 
             }
+        }
+
+        private void SignInRemember(string e_mail, bool? rememberMe)
+        {
+            throw new NotImplementedException();
         }
 
         //GET: SignInAsync

@@ -11,7 +11,9 @@ namespace TooptyDashboard.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.Web;
+
     public partial class Product
     {
         public int IdProduct { get; set; }
@@ -19,7 +21,13 @@ namespace TooptyDashboard.Models
         public string Nom { get; set; }
         public string Price { get; set; }
         public string Qte { get; set; }
+        [DisplayName("Marque")]
         public int IdMarque { get; set; }
+        [DisplayName("Categorie")]
         public int IdCategorie { get; set; }
+        [DisplayName("Image")]
+        public string ImageUrl { get; set; }
+
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }
