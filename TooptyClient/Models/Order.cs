@@ -18,13 +18,6 @@ namespace TooptyClient.Models
 
     public partial class Order
     {
-        //public int Id_Order { get; set; }
-        //public string Code_Order { get; set; }
-        //public string Name_Order { get; set; }
-        //public string Type_Order { get; set; }
-        //public Nullable<System.DateTime> Date { get; set; }
-        //public Nullable<double> Total_Money { get; set; }
-
         [ScaffoldColumn(false)]
         public int OrderId { get; set; }
 
@@ -144,4 +137,3 @@ namespace TooptyClient.Models
         }
     }
 }
-

@@ -9,7 +9,7 @@ namespace TooptyClient.Controllers
     {
     
 
-        ClientTooptyEntities storeDB = new ClientTooptyEntities();
+        TooptyClientDBEntities storeDB = new TooptyClientDBEntities();
         //
         // GET: /ShoppingCart/
         public ActionResult Index()
@@ -24,6 +24,18 @@ namespace TooptyClient.Controllers
             };
             // Return the view
             return View(viewModel);
+
+
+
+            //var items = _shoppingCart.GetShoppingCartItems();
+            //    _shoppingCart.ShoppingCartItems = items;
+
+            //    var shoppingCartViewModel = new ShoppingCartViewModel
+            //    {
+            //        ShoppingCart = _shoppingCart,
+            //        ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal()
+            //    };
+            //    return View(shoppingCartViewModel);
         }
         //
         // GET: /Store/AddToCart/5
@@ -31,7 +43,7 @@ namespace TooptyClient.Controllers
         public ActionResult AddToCart(int id)
         {
             // Retrieve the item from the database
-            var addedItem = storeDB.Products
+            var addedItem = storeDB.Product
                 .Single(item => item.ID == id);
 
             // Add it to the shopping cart
@@ -65,10 +77,10 @@ namespace TooptyClient.Controllers
             // Get the name of the item to display confirmation
 
             // Get the name of the album to display confirmation
-            string itemName = storeDB.Products
+            string itemName = storeDB.Product
                 .Single(i => i.ID == id).Name;
 
-            Product item = storeDB.Products
+            Product item = storeDB.Product
              .Single(i => i.ID == id);
 
             // Remove from cart

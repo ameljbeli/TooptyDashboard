@@ -21,7 +21,7 @@ namespace TooptyDashboard.Controllers
             {
                 return RedirectToAction("SmartLogin", "Account");
             }
-            return View(db.Categorie.ToList());
+            return View(db.Categories.ToList());
         }
 
         // GET: Categories/Details/5
@@ -35,7 +35,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categorie categorie = db.Categorie.Find(id);
+            Categorie categorie = db.Categories.Find(id);
             if (categorie == null)
             {
                 return HttpNotFound();
@@ -66,7 +66,7 @@ namespace TooptyDashboard.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Categorie.Add(categorie);
+                db.Categories.Add(categorie);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -85,7 +85,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categorie categorie = db.Categorie.Find(id);
+            Categorie categorie = db.Categories.Find(id);
             if (categorie == null)
             {
                 return HttpNotFound();
@@ -124,7 +124,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categorie categorie = db.Categorie.Find(id);
+            Categorie categorie = db.Categories.Find(id);
             if (categorie == null)
             {
                 return HttpNotFound();
@@ -141,8 +141,8 @@ namespace TooptyDashboard.Controllers
             {
                 return RedirectToAction("SmartLogin", "Account");
             }
-            Categorie categorie = db.Categorie.Find(id);
-            db.Categorie.Remove(categorie);
+            Categorie categorie = db.Categories.Find(id);
+            db.Categories.Remove(categorie);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

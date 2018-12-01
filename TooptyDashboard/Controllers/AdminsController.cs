@@ -21,7 +21,7 @@ namespace TooptyDashboard.Controllers
             {
                 return RedirectToAction("SmartLogin", "Account");
             }
-            return View(db.Admin.ToList());
+            return View(db.Admins.ToList());
         }
 
         // GET: Admins1/Details/5
@@ -35,7 +35,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Admin admin = db.Admin.Find(id);
+            Admin admin = db.Admins.Find(id);
             if (admin == null)
             {
                 return HttpNotFound();
@@ -66,7 +66,7 @@ namespace TooptyDashboard.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Admin.Add(admin);
+                db.Admins.Add(admin);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -85,7 +85,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Admin admin = db.Admin.Find(id);
+            Admin admin = db.Admins.Find(id);
             if (admin == null)
             {
                 return HttpNotFound();
@@ -124,7 +124,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Admin admin = db.Admin.Find(id);
+            Admin admin = db.Admins.Find(id);
             if (admin == null)
             {
                 return HttpNotFound();
@@ -137,8 +137,8 @@ namespace TooptyDashboard.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Admin admin = db.Admin.Find(id);
-            db.Admin.Remove(admin);
+            Admin admin = db.Admins.Find(id);
+            db.Admins.Remove(admin);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

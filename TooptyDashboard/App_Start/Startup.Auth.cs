@@ -58,11 +58,9 @@ namespace TooptyDashboard
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(
+             clientId: "196347781213-8a9etrmvscgnmn8l8ch6nvqi5shc06em.apps.googleusercontent.com",
+             clientSecret: "hcjhWJkW_uxTk74KxmqpeUFc");
         }
     }
 }

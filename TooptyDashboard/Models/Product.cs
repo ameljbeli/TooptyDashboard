@@ -11,23 +11,68 @@ namespace TooptyDashboard.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
+    using System.Linq;
     using System.Web;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.IO;
+    using System.Web.Mvc.Html;
 
     public partial class Product
     {
-        public int IdProduct { get; set; }
-        public string Matricule { get; set; }
-        public string Nom { get; set; }
-        public string Price { get; set; }
-        public string Qte { get; set; }
-        [DisplayName("Marque")]
-        public int IdMarque { get; set; }
-        [DisplayName("Categorie")]
-        public int IdCategorie { get; set; }
-        [DisplayName("Image")]
-        public string ImageUrl { get; set; }
 
-        public HttpPostedFileBase ImageFile { get; set; }
+        //private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+        public int ID { get; set; }
+        public int CatagorieId { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        [DataType(DataType.Upload)]
+        [Display(Name = "Upload File")]
+        [Required(ErrorMessage = "Please choose file to upload.")]
+        public string ItemPictureUrl { get; set; }
+        public int Qte { get; set; }
+        public int IdMarque { get; set; }
+        public byte[] InternalImage { get; set; }
+
+        [Display(Name = "Local file")]
+        [NotMapped]
+        public HttpPostedFileBase ImageFile
+        {
+            get
+            {
+                return null;
+            }
+
+            set
+            {
+                try
+                {
+                    MemoryStream target = new MemoryStream();
+
+                    if (value.InputStream == null)
+                        return;
+
+                    value.InputStream.CopyTo(target);
+                    InternalImage = target.ToArray();
+                }
+                catch (Exception ex)
+                {
+                    //logger.Error(ex.Message);
+                    //logger.Error(ex.StackTrace);
+                }
+            }
+        }
+
+
+
+        public virtual Marque Marque { get; set; }
+        public virtual Categorie Catagorie { get; set; }
+        public virtual List<Order_Detail> OrderDetails { get; set; }
+
+
+
     }
 }

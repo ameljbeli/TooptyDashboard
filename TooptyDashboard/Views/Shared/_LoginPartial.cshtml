@@ -6,34 +6,32 @@
 
 
 @using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated && Session["UserID"]!=null)
+@if (Request.IsAuthenticated && Session["UserID"] != null)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-        @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
 
-<ul class="nav navbar-nav">
-    <li>@Html.ActionLink("Clients", "Index", "Clients")</li>
-    <li>@Html.ActionLink("Products", "Index", "Products")</li>
-    <li>@Html.ActionLink("Brands", "Index", "Marques")</li>
-    <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
-    <li>@Html.ActionLink("Commandes", "Index", "Commandes")</li>
-    <li>@Html.ActionLink("Users", "Index", "AspNetUsers")</li>
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <a href="@Url.Action("Index", "Manage")" title="Manage" class="links">
+            <img class="_2qgu _7ql _1m6h img" src="https://scontent.ftun3-1.fna.fbcdn.net/v/t1.0-1/p24x24/37370427_1855515891153495_5338135914994466816_n.jpg?_nc_cat=101&amp;_nc_ht=scontent.ftun3-1.fna&amp;oh=9e21fddb9bba50cffe7721a7e9f01283&amp;oe=5C6CF423" alt="" id="profile_pic_header_100000853054549">
 
+        </a>
+        @*<img class="_2qgu _7ql _1m6h img" src="https://scontent.ftun3-1.fna.fbcdn.net/v/t1.0-1/p24x24/37370427_1855515891153495_5338135914994466816_n.jpg?_nc_cat=101&amp;_nc_ht=scontent.ftun3-1.fna&amp;oh=9e21fddb9bba50cffe7721a7e9f01283&amp;oe=5C6CF423" alt="" id="profile_pic_header_100000853054549">*@
+
+    </li>
+    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
 
 </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
-        </ul>
-    }
+}
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        @*<li>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
-        <li>@Html.ActionLink("Login", "SmartLogin", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+<ul class="nav navbar-nav navbar-right">
+    @*<li>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+    <li>@Html.ActionLink("Login", "SmartLogin", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <li></li>
+
+</ul>
 }

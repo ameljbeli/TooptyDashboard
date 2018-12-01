@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -11,6 +13,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using TooptyDashboard.Models;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace TooptyDashboard
 {
@@ -27,8 +32,42 @@ namespace TooptyDashboard
     {
         public Task SendAsync(IdentityMessage message)
         {
+            // Twilio Begin
+            //var accountSid = ConfigurationManager.AppSettings["SMSAccountIdentification"];
+            //var authToken = ConfigurationManager.AppSettings["SMSAccountPassword"];
+            //var fromNumber = ConfigurationManager.AppSettings["SMSAccountFrom"];
+
+            //TwilioClient.Init(accountSid, authToken);
+
+            //MessageResource result = MessageResource.Create(
+            //new PhoneNumber(message.Destination),
+            //from: new PhoneNumber(fromNumber),
+            //body: message.Body
+            //);
+
+            ////Status is one of Queued, Sending, Sent, Failed or null if the number is not valid
+            //Trace.TraceInformation(result.Status.ToString());
+            ////Twilio doesn't currently have an async API, so return success.
+            //return Task.FromResult(0);
+            // Twilio End
+
+            // ASPSMS Begin 
+            //var soapSms = new ASPSMSX2.ASPSMSX2SoapClient("ASPSMSX2Soap","2241995Behappy@");
+            //soapSms.SendSimpleTextSMS(
+            //  System.Configuration.ConfigurationManager.AppSettings["SMSAccountIdentification"],
+            //  System.Configuration.ConfigurationManager.AppSettings["SMSAccountPassword"],
+            //  message.Destination,
+            //  System.Configuration.ConfigurationManager.AppSettings["SMSAccountFrom"],
+            //  message.Body);
+            //soapSms.Close();
+            //return Task.FromResult(0);
+            // ASPSMS End
+
             // Connectez votre service SMS ici pour envoyer un message texte.
             return Task.FromResult(0);
+
+
+
         }
     }
 
@@ -86,6 +125,54 @@ namespace TooptyDashboard
             }
             return manager;
         }
+    }
+    //     Default EntityFramework IUser implementation
+    public class IdentityUser<TKey, TLogin, TRole, TClaim> : IUser<TKey>
+       where TLogin : IdentityUserLogin<TKey>
+       where TRole : IdentityUserRole<TKey>
+       where TClaim : IdentityUserClaim<TKey>
+    {
+        public IdentityUser()
+        {
+            Claims = new List<TClaim>();
+            Roles = new List<TRole>();
+            Logins = new List<TLogin>();
+        }
+
+        ///     User ID (Primary Key)
+        public virtual TKey Id { get; set; }
+
+        public virtual string Email { get; set; }
+        public virtual bool EmailConfirmed { get; set; }
+
+        public virtual string PasswordHash { get; set; }
+
+        ///     A random value that should change whenever a users credentials have changed (password changed, login removed)
+        public virtual string SecurityStamp { get; set; }
+
+        public virtual string PhoneNumber { get; set; }
+        public virtual bool PhoneNumberConfirmed { get; set; }
+
+        public virtual bool TwoFactorEnabled { get; set; }
+
+        ///     DateTime in UTC when lockout ends, any time in the past is considered not locked out.
+        public virtual DateTime? LockoutEndDateUtc { get; set; }
+
+        public virtual bool LockoutEnabled { get; set; }
+
+        ///     Used to record failures for the purposes of lockout
+        public virtual int AccessFailedCount { get; set; }
+
+        ///     Navigation property for user roles
+        public virtual ICollection<TRole> Roles { get; private set; }
+
+        ///     Navigation property for user claims
+        public virtual ICollection<TClaim> Claims { get; private set; }
+
+        ///     Navigation property for user logins
+        public virtual ICollection<TLogin> Logins { get; private set; }
+
+        public virtual string UserName { get; set; }
     }
 
     // Configurer le gestionnaire de connexion d'application qui est utilisé dans cette application.

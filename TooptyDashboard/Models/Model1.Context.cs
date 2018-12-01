@@ -25,11 +25,15 @@ namespace TooptyDashboard.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Admin> Admin { get; set; }
-        public virtual DbSet<Categorie> Categorie { get; set; }
-        public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<Commande> Commande { get; set; }
-        public virtual DbSet<Marque> Marque { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<Categorie> Categories { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Commande> Commandes { get; set; }
+        public virtual DbSet<Marque> Marques { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Order_Detail> Order_Detail { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
     }
 }

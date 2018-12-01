@@ -15,15 +15,17 @@ namespace TooptyClient.Models
     using System.Web;
     using System.Web.Mvc;
 
+
     public partial class ShoppingCart
     {
-        public string ShoppingCartId { get; set; }
+        public string ShoppingCartId_ { get; set; }
         public string ShoppingCartItemId { get; set; }
-        public List<ShoppingCartItem> ShoppingCartItems { get; set; }
 
-        ClientTooptyEntities storeDB = new ClientTooptyEntities();
-       
+        TooptyClientDBEntities storeDB = new TooptyClientDBEntities();
+        string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
+
+
 
         public static ShoppingCart GetCart(HttpContextBase context)
         {
@@ -41,8 +43,8 @@ namespace TooptyClient.Models
         public int AddToCart(Product item)
         {
             // Get the matching cart and item instances
-            var cartItem = storeDB.ShoppingCartItems.SingleOrDefault(
-                c => c.CartId == ShoppingCartId
+            var cartItem = storeDB.ShoppingCartItem.SingleOrDefault(
+                c => c.CartId == "aaala@gmail.com"
                 && c.ItemId == item.ID);
 
             if (cartItem == null)
@@ -52,10 +54,11 @@ namespace TooptyClient.Models
                 {
                     ItemId = item.ID,
                     CartId = ShoppingCartId,
+                    Item = item,
                     Count = 1,
                     DateCreated = DateTime.Now
                 };
-                storeDB.ShoppingCartItems.Add(cartItem);
+                storeDB.ShoppingCartItem.Add(cartItem);
             }
             else
             {
@@ -75,7 +78,7 @@ namespace TooptyClient.Models
 
             // Get the cart
 
-            var cartItem = storeDB.ShoppingCartItems.Single(
+            var cartItem = storeDB.ShoppingCartItem.Single(
                 cart => cart.CartId == ShoppingCartId
                 && cart.ItemId == id);
 
@@ -91,7 +94,7 @@ namespace TooptyClient.Models
                 }
                 else
                 {
-                    storeDB.ShoppingCartItems.Remove(cartItem);
+                    storeDB.ShoppingCartItem.Remove(cartItem);
                 }
                 // Save changes
                 storeDB.SaveChanges();
@@ -101,12 +104,12 @@ namespace TooptyClient.Models
 
         public void EmptyCart()
         {
-            var cartItems = storeDB.ShoppingCartItems.Where(
+            var cartItems = storeDB.ShoppingCartItem.Where(
                 cart => cart.CartId == ShoppingCartId);
 
             foreach (var cartItem in cartItems)
             {
-                storeDB.ShoppingCartItems.Remove(cartItem);
+                storeDB.ShoppingCartItem.Remove(cartItem);
             }
             // Save changes
             storeDB.SaveChanges();
@@ -114,14 +117,14 @@ namespace TooptyClient.Models
 
         public List<ShoppingCartItem> GetCartItems()
         {
-            return storeDB.ShoppingCartItems.Where(
+            return storeDB.ShoppingCartItem.Where(
                 cart => cart.CartId == ShoppingCartId).ToList();
         }
 
         public int GetCount()
         {
             // Get the count of each item in the cart and sum them up
-            int? count = (from cartItems in storeDB.ShoppingCartItems
+            int? count = (from cartItems in storeDB.ShoppingCartItem
                           where cartItems.CartId == ShoppingCartId
                           select (int?)cartItems.Count).Sum();
             // Return 0 if all entries are null
@@ -130,14 +133,18 @@ namespace TooptyClient.Models
 
         public decimal GetTotal()
         {
-            // Multiply item price by count of that item to get 
+            //Multiply item price by count of that item to get
             // the current price for each of those items in the cart
             // sum all item price totals to get the cart total
-            decimal? total = (from cartItems in storeDB.ShoppingCartItems
-                              where cartItems.CartId == ShoppingCartId
-                              select (int?)cartItems.Count *
-                              cartItems.Item.Price).Sum();
+            //decimal ? total = (from Items in storeDB.ShoppingCartItem
+            //                   where Items.CartId == ShoppingCartId
+            //                   select (int?)Items.Count *
+            //                  Items.Item.Price).Sum();
 
+            //return total ?? decimal.Zero;
+
+            decimal? total = storeDB.ShoppingCartItem.Where(c => c.CartId == ShoppingCartId)
+               .Select(c => c.Item.Price * c.Count).Sum();
             return total ?? decimal.Zero;
         }
 
@@ -200,7 +207,7 @@ namespace TooptyClient.Models
         // be associated with their username
         public void MigrateCart(string userName)
         {
-            var shoppingCart = storeDB.ShoppingCartItems.Where(
+            var shoppingCart = storeDB.ShoppingCartItem.Where(
                 c => c.CartId == ShoppingCartId);
 
             foreach (ShoppingCartItem item in shoppingCart)

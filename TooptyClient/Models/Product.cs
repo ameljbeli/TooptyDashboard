@@ -20,84 +20,73 @@ namespace TooptyClient.Models
     using System.IO;
     using System.Web.Mvc.Html;
 
-
     public partial class Product
     {
-        //public int IdProduct { get; set; }
-        //public string Matricule { get; set; }
-        //public string Nom { get; set; }
-        //public int Price { get; set; }
-        //public int Qte { get; set; }
-        //public int IdMarque { get; set; }
-        //public int IdCategorie { get; set; }
-        //public string ImageUrl { get; set; }
-
-        //public int ProductId { get; set; }
-        //public string Name { get; set; }
-        //public string ShortDescription { get; set; }
-        //public string LongDescription { get; set; }
-        //public decimal Price { get; set; }
-        //public string ImageUrl { get; set; }
-        //public string ImageThumbnailUrl { get; set; }
-        //public bool IsPreferredProduct { get; set; }
-        //public bool InStock { get; set; }
-        //public int CategoryId { get; set; }
-        //public virtual Categorie Category { get; set; }
-
-
-        [Key]
-        [ScaffoldColumn(false)]
         public int ID { get; set; }
-
-        [DisplayName("Catagorie")]
         public int CatagorieId { get; set; }
-
-        [Required(ErrorMessage = "An Item Name is required")]
-        [StringLength(160)]
         public string Name { get; set; }
-
-
-
-        [Required(ErrorMessage = "Price is required")]
-        [Range(0.01, 999.99, ErrorMessage = "Price must be between 0.01 and 999.99")]
         public decimal Price { get; set; }
-
-        public byte[] InternalImage { get; set; }
-
-        [Display(Name = "Local file")]
-        [NotMapped]
-        public HttpPostedFileBase File
-        {
-            get
-            {
-                return null;
-            }
-
-            set
-            {
-                try
-                {
-                    MemoryStream target = new MemoryStream();
-
-                    if (value.InputStream == null)
-                        return;
-
-                    value.InputStream.CopyTo(target);
-                    InternalImage = target.ToArray();
-                }
-                catch (Exception ex)
-                {
-                   
-                }
-            }
-        }
-
-        [DisplayName("Item Picture URL")]
-        [StringLength(1024)]
         public string ItemPictureUrl { get; set; }
+        public int Qte { get; set; }
+        public int IdMarque { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
+
 
         public virtual Categorie Catagorie { get; set; }
         public virtual List<Order_Detail> OrderDetails { get; set; }
+
+
+        //[Key]
+        ////[ScaffoldColumn(false)]
+        //public int ID { get; set; }
+
+        //[DisplayName("Catagorie")]
+        //public int CatagorieId { get; set; }
+
+        //[Required(ErrorMessage = "An Item Name is required")]
+        //[StringLength(160)]
+        //public string Name { get; set; }
+
+
+
+        //[Required(ErrorMessage = "Price is required")]
+        //[Range(0.01, 999.99, ErrorMessage = "Price must be between 0.01 and 999.99")]
+        //public decimal Price { get; set; }
+
+        //public byte[] InternalImage { get; set; }
+
+        //[Display(Name = "Local file")]
+        ////[NotMapped]
+        //public HttpPostedFileBase File
+        //{
+        //    get
+        //    {
+        //        return null;
+        //    }
+
+        //    set
+        //    {
+        //        try
+        //        {
+        //            MemoryStream target = new MemoryStream();
+
+        //            if (value.InputStream == null)
+        //                return;
+
+        //            value.InputStream.CopyTo(target);
+        //            InternalImage = target.ToArray();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //        }
+        //    }
+        //}
+
+        //[DisplayName("Item Picture URL")]
+        //[StringLength(1024)]
+        //public string ItemPictureUrl { get; set; }
+
+        //public virtual Categorie Catagorie { get; set; }
+        //public virtual List<Order_Detail> OrderDetails { get; set; }
     }
 }
-

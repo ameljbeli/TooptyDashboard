@@ -1,0 +1,11 @@
+﻿@model IEnumerable<TooptyDashboard.Models.Categorie>
+<ul id="categories">
+    @foreach (var genre in Model)
+    {
+        <li>
+            @Html.ActionLink(genre.NomCategorie,
+                "Browse", "Store",
+                new { Genre = genre.NomCategorie }, null)
+    </li>
+    }
+</ul>

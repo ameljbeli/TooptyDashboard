@@ -23,6 +23,8 @@ namespace TooptyDashboard.Models
         }
     
         public string Id { get; set; }
+        //public string HomeTown { get; set; }
+        //public System.DateTime? BirthDate { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<TooptyClient.Models.Categorie>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomCategorie)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomCategorie)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdCategorie }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdCategorie }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdCategorie })
+        </td>
+    </tr>
+}
+
+</table>

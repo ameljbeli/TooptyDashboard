@@ -21,7 +21,7 @@ namespace TooptyDashboard.Controllers
             {
                 return RedirectToAction("SmartLogin", "Account");
             }
-            return View(db.Client.ToList());
+            return View(db.Clients.ToList());
         }
 
         // GET: Clients/Details/5
@@ -31,7 +31,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
+            Client client = db.Clients.Find(id);
             if (client == null)
             {
                 return HttpNotFound();
@@ -54,7 +54,7 @@ namespace TooptyDashboard.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Client.Add(client);
+                db.Clients.Add(client);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -69,7 +69,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
+            Client client = db.Clients.Find(id);
             if (client == null)
             {
                 return HttpNotFound();
@@ -100,7 +100,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
+            Client client = db.Clients.Find(id);
             if (client == null)
             {
                 return HttpNotFound();
@@ -113,8 +113,8 @@ namespace TooptyDashboard.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Client client = db.Client.Find(id);
-            db.Client.Remove(client);
+            Client client = db.Clients.Find(id);
+            db.Clients.Remove(client);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

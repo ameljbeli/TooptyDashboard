@@ -16,5 +16,8 @@ namespace TooptyDashboard.Models
     {
         public int IdCategorie { get; set; }
         public string NomCategorie { get; set; }
+
+        public virtual ICollection<Product> Items { get; set; }
+
     }
 }

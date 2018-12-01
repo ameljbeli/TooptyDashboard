@@ -1,7 +1,5 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using Owin;
 
-[assembly: OwinStartupAttribute(typeof(TooptyClient.Startup))]
 namespace TooptyClient
 {
     public partial class Startup

@@ -14,19 +14,13 @@ namespace TooptyClient.Models
     
     public partial class Order_Detail
     {
-        //public int Id_Order_Detail { get; set; }
-        //public Nullable<int> Id_Order { get; set; }
-        //public Nullable<int> Id_Product { get; set; }
-        //public string Name_Product { get; set; }
-        //public Nullable<int> Qte { get; set; }
-        //public Nullable<double> Price { get; set; }
-        //public Nullable<double> Total_Money { get; set; }
-
         public int OrderDetailId { get; set; }
-        public int OrderId { get; set; }
-        public int ItemId { get; set; }
-        public int Quantity { get; set; }
-        public decimal UnitPrice { get; set; }
+        public Nullable<int> OrderId { get; set; }
+        public Nullable<int> ItemId { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<decimal> UnitPrice { get; set; }
+        public Nullable<double> Price { get; set; }
+
         public virtual Product Item { get; set; }
         public virtual Order Order { get; set; }
     }

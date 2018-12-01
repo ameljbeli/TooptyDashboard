@@ -22,7 +22,7 @@ namespace TooptyDashboard.Controllers
         {
             using (TooptyDBEntities db = new TooptyDBEntities())
             {
-                if (db.Admin.Any(x => x.Name == user.Name))
+                if (db.Admins.Any(x => x.Name == user.Name))
                 {
                     ViewBag.DuplicateMessage = "User Name Alreay Exists.";
                     return View("Registration", user);
@@ -31,7 +31,7 @@ namespace TooptyDashboard.Controllers
                 
                     {
                     
-                        db.Admin.Add(user);
+                        db.Admins.Add(user);
                         db.SaveChanges();
 
                     ////Send Email to User

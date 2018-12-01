@@ -64,10 +64,13 @@
                     {
                         <tr id="row-@item.ItemId" >
                             <td>
-                                @Html.ActionLink(item.Item.Name, "Details", "Store", new { id = item.ID }, null)
+                                name
+                                @*@item.Item.Name*@
+                                @*@Html.ActionLink(item.Item.Name, "Details", "Store", new { id = item.ID }, null)*@
                             </td>
                             <td>
-                                @item.Item.Price
+                                price
+                                @*@item.Item.Price*@
                             </td>
                             <td id="item-count-@item.ItemId">
                                 @item.Count

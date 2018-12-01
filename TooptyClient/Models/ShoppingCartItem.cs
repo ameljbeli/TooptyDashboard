@@ -15,18 +15,12 @@ namespace TooptyClient.Models
 
     public partial class ShoppingCartItem
     {
-    //    public int ShoppingCartItemId_ { get; set; }
-    //    public Nullable<int> Amount_ { get; set; }
-    //    public string ShoppingCartId_ { get; set; }
-
-    [Key]
-    public int ID { get; set; }
-    public string CartId { get; set; }
-    public int ItemId { get; set; }
-    public int Count { get; set; }
-    public System.DateTime DateCreated { get; set; }
-    public virtual Product Item { get; set; }
-
-
-}
+        [Key]
+        public int ID { get; set; }
+        public string CartId { get; set; }
+        public Nullable<int> ItemId { get; set; }
+        public int Count { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
+        public virtual Product Item { get; set; }
+    }
 }

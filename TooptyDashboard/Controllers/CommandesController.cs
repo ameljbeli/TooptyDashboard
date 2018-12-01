@@ -21,7 +21,7 @@ namespace TooptyDashboard.Controllers
             {
                 return RedirectToAction("SmartLogin", "Account");
             }
-            return View(db.Commande.ToList());
+            return View(db.Commandes.ToList());
         }
 
         // GET: Commandes/Details/5
@@ -31,7 +31,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Commande commande = db.Commande.Find(id);
+            Commande commande = db.Commandes.Find(id);
             if (commande == null)
             {
                 return HttpNotFound();
@@ -54,7 +54,7 @@ namespace TooptyDashboard.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Commande.Add(commande);
+                db.Commandes.Add(commande);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -69,7 +69,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Commande commande = db.Commande.Find(id);
+            Commande commande = db.Commandes.Find(id);
             if (commande == null)
             {
                 return HttpNotFound();
@@ -100,7 +100,7 @@ namespace TooptyDashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Commande commande = db.Commande.Find(id);
+            Commande commande = db.Commandes.Find(id);
             if (commande == null)
             {
                 return HttpNotFound();
@@ -113,8 +113,8 @@ namespace TooptyDashboard.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Commande commande = db.Commande.Find(id);
-            db.Commande.Remove(commande);
+            Commande commande = db.Commandes.Find(id);
+            db.Commandes.Remove(commande);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

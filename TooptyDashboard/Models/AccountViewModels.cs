@@ -8,6 +8,9 @@ namespace TooptyDashboard.Models
         [Required]
         [Display(Name = "Courrier électronique")]
         public string Email { get; set; }
+
+        //public string HomeTown { get; set; }
+        //public System.DateTime? BirthDate { get; set; }
     }
 
     public class ExternalLoginListViewModel

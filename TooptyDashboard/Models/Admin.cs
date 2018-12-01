@@ -15,9 +15,9 @@ namespace TooptyDashboard.Models
     public partial class Admin
     {
         public int IdAdmin { get; set; }
+        public string E_mail { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
-        public string E_mail { get; set; }
         public string ConfirmPassword { get; set; }
         public Nullable<bool> RememberMe { get; set; }
     }

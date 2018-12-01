@@ -1,19 +1,19 @@
 ﻿@model TooptyClient.Models.Product
 
 @{
-    ViewBag.Title = "Item - " + Model.Nom;
+    ViewBag.Title = "Item - " + Model.Name;
 }
 
-<h2>@Model.Nom</h2>
+<h2>@Model.Name</h2>
 
 <p>
-    <img alt="@Model.Nom" src="@Model.ImageUrl" />
+    <img alt="@Model.Name" src="@Model.ItemPictureUrl" />
 </p>
 
 <div id="item-details">
     <p>
         <em>Genre:</em>
-        @Model.IdCategorie
+        @Model.CatagorieId
     </p>
     <p>
         <em>Price:</em>
@@ -21,7 +21,7 @@
     </p>
     <p class="button">
         @Html.ActionLink("Add to cart", "AddToCart",
-        "ShoppingCart", new { id = Model.IdProduct }, "")
+        "ShoppingCart", new { id = Model.ID }, "")
     </p>
 </div>
 
